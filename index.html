@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>סימולציית פישינג חינוכית - אזהרה</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Google Sans','Noto Sans Hebrew','Arial',sans-serif;
+            background-color: #fff;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .login-container {
+            width: 448px;
+            padding: 48px 40px 36px;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            text-align: right;
+        }
+        .logo {
+            width: 75px;
+            height: 24px;
+            margin-bottom: 16px;
+            float: right;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 32px;
+            color: #202124;
+        }
+        input, button {
+            width: 100%;
+            height: 54px;
+            font-size: 16px;
+            padding: 13px 15px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #1a73e8;
+            color: #fff;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #287ae6;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #camera-permission, #phishing-alert {
+            display: none;
+        }
+        .fake-camera {
+            width: 100%;
+            height: 300px;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <img src="https://kedemcenter.co.il/wp-content/uploads/2023/02/google-76518__340.jpg" alt="Google" class="logo">
+            <div id="warning-screen">
+                <h1>אזהרה: זוהי סימולציה חינוכית</h1>
+                <p class="warning">אין להזין מידע אישי אמיתי. מטרת הסימולציה היא ללמד על סכנות הפישינג.</p>
+                <button onclick="startSimulation()">התחל סימולציה</button>
+            </div>
+            <div id="login-screen" style="display:none;">
+                <h1>כניסה</h1>
+                <p class="subtitle">מהו חשבון Google שלך</p>
+                <input type="email" id="email" placeholder="כתובת אימייל או מספר טלפון" required>
+                <input type="password" id="password" placeholder="סיסמה" required>
+                <button onclick="showCameraPermission()">אימות נוסף</button>
+            </div>
+            <div id="camera-permission">
+                <h1>נדרשת גישה למצלמה</h1>
+                <p>האתר מבקש גישה למצלמה שלך לצורך אימות זהות.</p>
+                <button onclick="simulateCameraAccess(true)">אשר גישה</button>
+                <button onclick="simulateCameraAccess(false)">דחה גישה</button>
+            </div>
+            <div id="phishing-alert">
+                <h1>התראת אבטחה</h1>
+                <div class="fake-camera">זוהי הדמיה של תצוגת מצלמה</div>
+                <p class="warning">אכלת אותה! זה היה פישינג. הסיסמה והתמונה שלך היו נגנבות כעת.</p>
+                <p>זוהי הדגמה חינוכית. לעולם אל תאשרו גישה למצלמה או תזינו סיסמאות באתרים לא מוכרים.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startSimulation() {
+            document.getElementById('warning-screen').style.display = 'none';
+            document.getElementById('login-screen').style.display = 'block';
+        }
+
+        function showCameraPermission() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('camera-permission').style.display = 'block';
+        }
+
+        function simulateCameraAccess(granted) {
+            document.getElementById('camera-permission').style.display = 'none';
+            document.getElementById('phishing-alert').style.display = 'block';
+            
+            if (granted) {
+                document.querySelector('.fake-camera').textContent = 'המצלמה שלך הייתה נפתחת כאן';
+            } else {
+                document.querySelector('.fake-camera').style.display = 'none';
+                document.querySelector('.warning').textContent = 'טוב עשית שלא אישרת גישה למצלמה. עם זאת, הסיסמה שלך עדיין הייתה נגנבת.';
+            }
+        }
+    </script>
+</body>
+</html>
